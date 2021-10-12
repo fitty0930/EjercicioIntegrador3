@@ -50,7 +50,7 @@ public class Main {
 		 */
 		Estudiante estudiante = new Estudiante("benjamin", "hoffman", (long) 4333333, "difuso");
 
-		System.out.println(estudianteImplementation.saveEstudiante(estudiante));
+		estudianteImplementation.create(estudiante);
 
 		/**
 		 * 2) B matricular un estudiante a una carrera
@@ -69,7 +69,7 @@ public class Main {
 		/**
 		 * 2) D recupera un estudiante en base de su libreta universitaria
 		 */
-		System.out.println(estudianteImplementation.getEstudianteByID(2));
+		System.out.println(estudianteImplementation.get(2));
 		/**
 		 * 2) E recupera todos los estudiante en base a su genero
 		 */

@@ -20,6 +20,7 @@ public class CiudadController {
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Ciudad getUsuario(@PathParam("id") int id) {
+		System.out.println("hola");
 		return cityRepo.get(id);
 	}
 }

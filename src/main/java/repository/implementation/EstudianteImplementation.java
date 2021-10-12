@@ -28,7 +28,7 @@ public class EstudianteImplementation implements EstudianteRepository {
 	 * @return retorna un objeto estudiante
 	 */
 	@Override
-	public Estudiante getEstudianteByID(int nroEstudiante) {
+	public Estudiante get(Integer nroEstudiante) {
 		@SuppressWarnings("unchecked")
 		List<Estudiante> nroEstudianteList = em
 				.createQuery("SELECT e FROM Estudiante e WHERE e.nroEstudiante=:nroEstudiante")
@@ -46,7 +46,7 @@ public class EstudianteImplementation implements EstudianteRepository {
 	 * @return retorna un objeto estudiante
 	 */
 	@Override
-	public Estudiante getEstudianteByName(String name) {
+	public Estudiante getByName(String name) {
 		@SuppressWarnings("unchecked")
 		List<Estudiante> e = em.createQuery("SELECT e FROM Estudiante e WHERE e.nombre=:nombre")
 				.setParameter("nombre", name).getResultList();
@@ -64,21 +64,21 @@ public class EstudianteImplementation implements EstudianteRepository {
 	 * @return retorna un objeto estudiante
 	 */
 	@Override
-	public Estudiante saveEstudiante(Estudiante estudiante) {
+	public void create(Estudiante estudiante) {
 		em.getTransaction().begin();
 		em.persist(estudiante);
 		em.getTransaction().commit();
-		return estudiante;
 	}
 
 	/**
-	 * Permite eliminar un estudiante 
+	 * Permite eliminar un estudiante
 	 */
 	@Override
-	public void deleteEstudiante(Estudiante estudiante) {
-		int nroEstudiante = estudiante.getNroEstudiante();
+	public boolean delete(Integer estudiante) {
+		int nroEstudiante = estudiante;
 		em.createQuery("DELETE FROM Estudiante e WHERE e.nroEstudiante=:nroEstudiante").setParameter("nroEstudiante",
 				nroEstudiante);
+		return true;
 	}
 
 	/**
@@ -127,11 +127,12 @@ public class EstudianteImplementation implements EstudianteRepository {
 	 * @param genero               el genero del estudiante, puede ser cualquier
 	 *                             cosa ya que es String
 	 * @param Ciudad               el nombre de la ciudad
-	 * @param CiudadImplementation recibe una implementacion de ciudad para consultas auxiliares
+	 * @param CiudadImplementation recibe una implementacion de ciudad para
+	 *                             consultas auxiliares
 	 */
 	public void darAltaEstudiante(String nombre, String apellido, Long dni, String genero, String Ciudad,
 			CiudadImplementation city) {
-		Ciudad ciudadIns = city.getCiudadByName(Ciudad);
+		Ciudad ciudadIns = city.getByName(Ciudad);
 		Estudiante estudiante = new Estudiante(nombre, apellido, dni, genero, ciudadIns);
 
 		em.persist(estudiante);
@@ -143,16 +144,17 @@ public class EstudianteImplementation implements EstudianteRepository {
 	 * 
 	 * @param nroLibreta    es el numero de estudiante
 	 * @param nombreCarrera el nombre de la carrera
-	 * @param career una implementacion de carrera para consultas auxiliares
-	 * @param situ una implementacion de situacion academica para consultas auxiliares
+	 * @param career        una implementacion de carrera para consultas auxiliares
+	 * @param situ          una implementacion de situacion academica para consultas
+	 *                      auxiliares
 	 */
 	public void matricularEstudiante(int nroLibreta, String nombreCarrera, CarreraImplementation career,
 			SituacionAcademicaImplementation situ) {
-		Estudiante nroEstudiante = this.getEstudianteByID(nroLibreta);
-		Carrera idCarrera = career.getCarreraByName(nombreCarrera);
+		Estudiante nroEstudiante = this.get(nroLibreta);
+		Carrera idCarrera = career.getByName(nombreCarrera);
 		if (idCarrera != null && nroEstudiante != null) {
 			SituacionAcademica tempAcademica = new SituacionAcademica(nroEstudiante, idCarrera, 0, false, null, null);
-			situ.saveSituacionAcademica(tempAcademica);
+			situ.create(tempAcademica);
 		}
 
 	}
@@ -181,19 +183,20 @@ public class EstudianteImplementation implements EstudianteRepository {
 	 * 
 	 * @param dni           el dni del estudiante
 	 * @param nombreCarrera el nombre de la carrera
-	 * @param career una implementacion de carrera para consultas auxiliares
-	 * @param situ una implementacion de situacion academica para consultas auxiliares
+	 * @param career        una implementacion de carrera para consultas auxiliares
+	 * @param situ          una implementacion de situacion academica para consultas
+	 *                      auxiliares
 	 */
 	public void matricularEstudiante(Long dni, String nombreCarrera, CarreraImplementation career,
 			SituacionAcademicaImplementation situ) {
 		em.getTransaction().begin();
 		Estudiante nroEstudiante = this.getByDNI(dni);
-		Carrera idCarrera = career.getCarreraByName(nombreCarrera);
+		Carrera idCarrera = career.getByName(nombreCarrera);
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		if (idCarrera != null && nroEstudiante != null) {
 			SituacionAcademica tempAcademica = new SituacionAcademica(nroEstudiante, idCarrera, 0, false, timestamp,
 					null);
-			situ.saveSituacionAcademica(tempAcademica);
+			situ.create(tempAcademica);
 		}
 		em.getTransaction().commit();
 	}
@@ -232,5 +235,15 @@ public class EstudianteImplementation implements EstudianteRepository {
 
 	public void closeConnection() {
 		this.em.close();
+	}
+
+	@Override
+	public List<Estudiante> getAll() {
+		@SuppressWarnings("unchecked")
+		List<Estudiante> retornedList = em.createQuery("SELECT e FROM Estudiante e").getResultList();
+		if (!retornedList.isEmpty()) {
+			return retornedList;
+		}
+		return null;
 	}
 }

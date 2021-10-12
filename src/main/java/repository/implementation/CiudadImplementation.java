@@ -40,7 +40,7 @@ public class CiudadImplementation implements CiudadRepository {
 	 * @return retorna una ciudad
 	 */
 	@Override
-	public Ciudad getCiudadByName(String name) {
+	public Ciudad getByName(String name) {
 		@SuppressWarnings("unchecked")
 		List<Ciudad> c = em.createQuery("SELECT c FROM Ciudad c WHERE c.nombreCiudad=:nombreCiudad")
 				.setParameter("nombreCiudad", name).getResultList();
@@ -58,11 +58,10 @@ public class CiudadImplementation implements CiudadRepository {
 	 * @return retorna la ciudad guardada
 	 */
 	@Override
-	public Ciudad saveCiudad(Ciudad ciudad) {
+	public void create(Ciudad ciudad) {
 		em.getTransaction().begin();
 		em.persist(ciudad);
 		em.getTransaction().commit();
-		return ciudad;
 	}
 
 	/**
@@ -71,12 +70,36 @@ public class CiudadImplementation implements CiudadRepository {
 	 * @param la ciudad a borrar
 	 */
 	@Override
-	public void deleteCiudad(Ciudad ciudad) {
-		int idCiudad = ciudad.getIdCiudad();
+	public boolean delete(Integer id) {
+		int idCiudad = id;
 		em.createQuery("DELETE FROM Ciudad c WHERE c.idCiudad=:idCiudad").setParameter("idCiudad", idCiudad);
+		return true;
 	}
 
 	public void closeConnection() {
 		this.em.close();
+	}
+
+	@Override
+	public Ciudad get(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(Integer id) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<Ciudad> getAll() {
+		@SuppressWarnings("unchecked")
+		List<Ciudad> c = em.createQuery("SELECT c FROM Ciudad c").getResultList();
+		if (!c.isEmpty()) {
+			return c;
+		} else {
+			return null;
+		}
 	}
 }

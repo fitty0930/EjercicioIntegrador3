@@ -1,13 +1,18 @@
 package repository;
 
+import java.util.List;
+
 import registro.estudiantes.dao.Facultad;
 
-public interface FacultadRepository {
-	Facultad getFacultadByID(int id);
+public interface FacultadRepository extends CrudRepo<Facultad, Integer> {
 
-	Facultad getFacultadByName(String name);
+	Facultad get(Integer id);
 
-	Facultad saveFacultad(Facultad facultad);
+	Facultad getByName(String name);
 
-	void deleteFacultad(Facultad facultad);
+	void create(Facultad pojo);
+
+	boolean delete(Integer id);
+
+	List<Facultad> getAll();
 }

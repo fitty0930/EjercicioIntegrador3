@@ -1,13 +1,18 @@
 package repository;
 
+import java.util.List;
+
 import registro.estudiantes.dao.SituacionAcademica;
 
-public interface SituacionAcademicaRepository {
-	SituacionAcademica getSituacionAcademicaByID(int id);
+public interface SituacionAcademicaRepository extends CrudRepo<SituacionAcademica, Integer> {
 
-	SituacionAcademica getSituacionAcademicaByName(String name);
+	SituacionAcademica get(Integer id);
 
-	SituacionAcademica saveSituacionAcademica(SituacionAcademica situacionacademica);
+	SituacionAcademica getByName(String name);
 
-	void deleteSituacionAcademica(SituacionAcademica situacionacademica);
+	void create(SituacionAcademica pojo);
+
+	boolean delete(Integer id);
+
+	List<SituacionAcademica> getAll();
 }

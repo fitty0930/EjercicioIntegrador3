@@ -21,7 +21,7 @@ public class SituacionAcademicaImplementation implements SituacionAcademicaRepos
 	 * @return retorna un objeto situacionacademica
 	 */
 	@Override
-	public SituacionAcademica getSituacionAcademicaByID(int id) {
+	public SituacionAcademica get(Integer id) {
 		@SuppressWarnings("unchecked")
 		List<SituacionAcademica> SituacionAcademicaList = em
 				.createQuery("SELECT s FROM SituacionAcademica s WHERE s.id=:id")
@@ -39,7 +39,7 @@ public class SituacionAcademicaImplementation implements SituacionAcademicaRepos
 	 * @return retorna un objeto situacion academica
 	 */
 	@Override
-	public SituacionAcademica getSituacionAcademicaByName(String name) {
+	public SituacionAcademica getByName(String name) {
 		return null;
 	}
 	
@@ -50,11 +50,10 @@ public class SituacionAcademicaImplementation implements SituacionAcademicaRepos
 	 * @return retorna la situacion academica guardada
 	 */
 	@Override
-	public SituacionAcademica saveSituacionAcademica(SituacionAcademica situacionacademica) {
+	public void create(SituacionAcademica situacionacademica) {
 		em.getTransaction().begin();
 		em.persist(situacionacademica);
 		em.getTransaction().commit();
-		return situacionacademica;
 	}
 	
 	/**
@@ -63,12 +62,24 @@ public class SituacionAcademicaImplementation implements SituacionAcademicaRepos
 	 * @param situacionacademica es la situacion academica a borrar
 	 */
 	@Override
-	public void deleteSituacionAcademica(SituacionAcademica situacionacademica) {
-		int id = situacionacademica.getId();
+	public boolean delete(Integer situacionacademica) {
+		int id = situacionacademica;
 		em.createQuery("DELETE FROM SituacionAcademica s WHERE s.id=:id").setParameter("id", id);
+		return true;
 	}
 
 	public void closeConnection() {
 		this.em.close();
+	}
+
+	@Override
+	public List<SituacionAcademica> getAll() {
+		@SuppressWarnings("unchecked")
+		List<SituacionAcademica> SituacionAcademicaList = em
+				.createQuery("SELECT s FROM SituacionAcademica s ").getResultList();
+		if (!SituacionAcademicaList.isEmpty()) {
+			return SituacionAcademicaList;
+		}
+		return null;
 	}
 }

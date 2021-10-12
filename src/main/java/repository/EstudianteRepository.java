@@ -1,13 +1,17 @@
 package repository;
 
+import java.util.List;
+
 import registro.estudiantes.dao.Estudiante;
 
-public interface EstudianteRepository {
-	Estudiante getEstudianteByID(int nroEstudiante);
+public interface EstudianteRepository extends CrudRepo<Estudiante, Integer> {
+	Estudiante get(Integer id);
 
-	Estudiante getEstudianteByName(String name);
+	Estudiante getByName(String name);
 
-	Estudiante saveEstudiante(Estudiante estudiante);
+	void create(Estudiante pojo);
 
-	void deleteEstudiante(Estudiante estudiante);
+	boolean delete(Integer id);
+
+	List<Estudiante> getAll();
 }

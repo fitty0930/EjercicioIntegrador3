@@ -21,7 +21,7 @@ public class FacultadImplementation implements FacultadRepository {
 	 * @return retorna un objeto facultad
 	 */
 	@Override
-	public Facultad getFacultadByID(int id) {
+	public Facultad get(Integer id) {
 		@SuppressWarnings("unchecked")
 		List<Facultad> c = em.createQuery("SELECT f FROM Facultad f WHERE f.idFacultad=:idFacultad")
 				.setParameter("idFacultad", id).getResultList();
@@ -39,7 +39,7 @@ public class FacultadImplementation implements FacultadRepository {
 	 * @return retorna un objeto facultad
 	 */
 	@Override
-	public Facultad getFacultadByName(String name) {
+	public Facultad getByName(String name) {
 		@SuppressWarnings("unchecked")
 		List<Facultad> c = em.createQuery("SELECT f FROM Facultad f WHERE f.nombreFacultad=:nombreFacultad")
 				.setParameter("nombreFacultad", name).getResultList();
@@ -57,11 +57,10 @@ public class FacultadImplementation implements FacultadRepository {
 	 * @return retorna la facultad guardada
 	 */
 	@Override
-	public Facultad saveFacultad(Facultad facultad) {
+	public void create(Facultad facultad) {
 		em.getTransaction().begin();
 		em.persist(facultad);
 		em.getTransaction().commit();
-		return facultad;
 	}
 
 	/**
@@ -69,13 +68,25 @@ public class FacultadImplementation implements FacultadRepository {
 	 * @param facultad es la facultad a eliminar
 	 */
 	@Override
-	public void deleteFacultad(Facultad facultad) {
-		int idFacultad = facultad.getIdFacultad();
+	public boolean delete(Integer facultad) {
+		int idFacultad = facultad;
 		em.createQuery("DELETE FROM Facultad f WHERE f.idFacultad=:idFacultad").setParameter("idFacultad", idFacultad);
+		return true;
 	}
 
 	public void closeConnection() {
 		this.em.close();
+	}
+
+	@Override
+	public List<Facultad> getAll() {
+		@SuppressWarnings("unchecked")
+		List<Facultad> c = em.createQuery("SELECT f FROM Facultad f").getResultList();
+		if (!c.isEmpty()) {
+			return c;
+		} else {
+			return null;
+		}
 	}
 
 }

@@ -1,13 +1,23 @@
 package repository;
 
+import java.util.List;
+
+import DTO.ReporteCarreras;
 import registro.estudiantes.dao.Carrera;
 
-public interface CarreraRepository {
-	Carrera getCarreraByID(int id);
+public interface CarreraRepository extends CrudRepo<Carrera, Integer> {
 
-	Carrera getCarreraByName(String name);
+	Carrera get(Integer id);
 
-	Carrera saveCarrera(Carrera carrera);
+	Carrera getByName(String name);
 
-	void deleteCarrera(Carrera carrera);
+	void create(Carrera pojo);
+
+	boolean delete(Integer id);
+
+	List<Carrera> getAll();
+
+	List<Carrera> getCarrerasConEstudiantesSortByCantidad();
+
+	List<ReporteCarreras> getReporte();
 }

@@ -46,7 +46,7 @@ public class CSVtoMYSQL {
 				// insertar
 				Iterator<Facultad> it = facultades.iterator();
 				while (it.hasNext()) {
-					facu.saveFacultad(it.next());
+					facu.create(it.next());
 				}
 				isFacultadImported = true;
 			} catch (IOException e) {
@@ -69,14 +69,14 @@ public class CSVtoMYSQL {
 					int idfacu = Integer.parseInt(row.get("idFacultad"));
 					String nombreCarrera = row.get("nombreCarrera");
 					Facultad temp;
-					temp = facu.getFacultadByID(idfacu);
+					temp = facu.get(idfacu);
 					Carrera carreraTemp = new Carrera(idCarrera, temp, nombreCarrera);
 					carreras.add(carreraTemp);
 				}
 				// insertar
 				Iterator<Carrera> it = carreras.iterator();
 				while (it.hasNext()) {
-					carre.saveCarrera(it.next());
+					carre.create(it.next());
 				}
 				isCarreraImported = true;
 			} catch (IOException e) {
@@ -105,7 +105,7 @@ public class CSVtoMYSQL {
 				// insertar
 				Iterator<Ciudad> it = ciudades.iterator();
 				while (it.hasNext()) {
-					ciudadImp.saveCiudad(it.next());
+					ciudadImp.create(it.next());
 				}
 				isCiudadImported = true;
 			} catch (IOException e) {
@@ -138,7 +138,7 @@ public class CSVtoMYSQL {
 				// insertar
 				Iterator<Estudiante> it = estudiantes.iterator();
 				while (it.hasNext()) {
-					estudianteImp.saveEstudiante(it.next());
+					estudianteImp.create(it.next());
 				}
 
 			} catch (IOException e) {
@@ -166,8 +166,8 @@ public class CSVtoMYSQL {
 					String fechaEgreso = row.get("fechaEgreso");
 					String fechaInscripcion = row.get("fechaInscripcion");
 
-					Carrera carreraTemp = carreraImp.getCarreraByID(idCarrera);
-					Estudiante estudianteTemp = estudianteImp.getEstudianteByID(nroEstudiante);
+					Carrera carreraTemp = carreraImp.get(idCarrera);
+					Estudiante estudianteTemp = estudianteImp.get(nroEstudiante);
 
 					SituacionAcademica temp = new SituacionAcademica(estudianteTemp, carreraTemp, antiguedad, egresado,
 							Timestamp.valueOf(fechaInscripcion), Timestamp.valueOf(fechaEgreso));
@@ -176,7 +176,7 @@ public class CSVtoMYSQL {
 				// insertar
 				Iterator<SituacionAcademica> it = situacionesAcad.iterator();
 				while (it.hasNext()) {
-					situacionAcademicaImp.saveSituacionAcademica(it.next());
+					situacionAcademicaImp.create(it.next());
 				}
 
 			} catch (IOException e) {

@@ -22,7 +22,7 @@ public class CarreraImplementation implements CarreraRepository {
 	 * @return retorna una carera
 	 */
 	@Override
-	public Carrera getCarreraByID(int id) {
+	public Carrera get(Integer id) {
 
 		@SuppressWarnings("unchecked")
 		List<Carrera> idCarrera = em.createQuery("SELECT c FROM Carrera c WHERE c.id=:id").setParameter("id", id)
@@ -40,7 +40,7 @@ public class CarreraImplementation implements CarreraRepository {
 	 * @return retorna una carrera
 	 */
 	@Override
-	public Carrera getCarreraByName(String name) {
+	public Carrera getByName(String name) {
 		@SuppressWarnings("unchecked")
 		List<Carrera> idCarrera = em.createQuery("SELECT c FROM Carrera c WHERE c.nombreCarrera=:nombreCarrera")
 				.setParameter("nombreCarrera", name).getResultList();
@@ -57,11 +57,10 @@ public class CarreraImplementation implements CarreraRepository {
 	 * @return retorna la carrera guardada
 	 */
 	@Override
-	public Carrera saveCarrera(Carrera carrera) {
+	public void create(Carrera carrera) {
 		em.getTransaction().begin();
 		em.persist(carrera);
 		em.getTransaction().commit();
-		return carrera;
 	}
 
 	/**
@@ -70,9 +69,10 @@ public class CarreraImplementation implements CarreraRepository {
 	 * @param carrera es la carrera a borrar
 	 */
 	@Override
-	public void deleteCarrera(Carrera carrera) {
-		int idCarrera = carrera.getIdCarrera();
+	public boolean delete(Integer id) {
+		int idCarrera = id;
 		em.createQuery("DELETE FROM Carrera c WHERE c.idCarrera=:idCarrera").setParameter("idCarrera", idCarrera);
+		return true;
 	}
 
 	/**
@@ -114,5 +114,16 @@ public class CarreraImplementation implements CarreraRepository {
 
 	public void closeConnection() {
 		this.em.close();
+	}
+
+	@Override
+	public List<Carrera> getAll() {
+		// TODO Auto-generated method stub
+		@SuppressWarnings("unchecked")
+		List<Carrera> retornedList = em.createQuery("SELECT c FROM Carrera c").getResultList();
+		if (!retornedList.isEmpty()) {
+			return retornedList;
+		}
+		return null;
 	}
 }

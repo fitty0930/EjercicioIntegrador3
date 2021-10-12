@@ -1,14 +1,19 @@
 package repository;
 
+import java.util.List;
+
 import registro.estudiantes.dao.Ciudad;
 
-public interface CiudadRepository {
+public interface CiudadRepository extends CrudRepo<Ciudad, Integer> {
 	Ciudad get(int id);
-	
-	Ciudad getCiudadByName(String name);
-	
-	Ciudad saveCiudad(Ciudad ciudad);
-	
-	void deleteCiudad(Ciudad ciudad);
-	
+
+	Ciudad getByName(String name);
+
+	void create(Ciudad pojo);
+
+	boolean delete(Integer id);
+
+	void update(Integer id);
+
+	List<Ciudad> getAll();
 }
