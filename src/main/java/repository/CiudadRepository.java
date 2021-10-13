@@ -5,7 +5,7 @@ import java.util.List;
 import registro.estudiantes.dao.Ciudad;
 
 public interface CiudadRepository extends CrudRepo<Ciudad, Integer> {
-	Ciudad get(int id);
+	Ciudad get(Integer id);
 
 	Ciudad getByName(String name);
 

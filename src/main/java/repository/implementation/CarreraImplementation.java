@@ -4,15 +4,24 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import DTO.ReporteCarreras;
+import entitymanagerfactory.EMF;
 import registro.estudiantes.dao.Carrera;
 import repository.CarreraRepository;
 
 public class CarreraImplementation implements CarreraRepository {
 
+	private static CarreraImplementation instance;
 	private EntityManager em;
 
-	public CarreraImplementation(EntityManager em) {
-		this.em = em;
+	public static CarreraImplementation getInstance() {
+		if (instance == null) {
+			instance = new CarreraImplementation();
+		}
+		return instance;
+	}
+
+	private CarreraImplementation() {
+		em = EMF.createEntityManager();
 	}
 
 	/**

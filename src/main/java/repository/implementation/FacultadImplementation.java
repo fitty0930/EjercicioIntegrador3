@@ -2,16 +2,24 @@ package repository.implementation;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import entitymanagerfactory.EMF;
 import registro.estudiantes.dao.Facultad;
 import repository.FacultadRepository;
 
 public class FacultadImplementation implements FacultadRepository {
 
 	private EntityManager em;
+	private static FacultadImplementation instance;
 
-	public FacultadImplementation(EntityManager em) {
-		this.em = em;
+	public static FacultadImplementation getInstance() {
+		if (instance == null) {
+			instance = new FacultadImplementation();
+		}
+		return instance;
+	}
 
+	private FacultadImplementation() {
+		this.em = EMF.createEntityManager();
 	}
 
 	/**
@@ -65,6 +73,7 @@ public class FacultadImplementation implements FacultadRepository {
 
 	/**
 	 * Permite eliminar una facultad
+	 * 
 	 * @param facultad es la facultad a eliminar
 	 */
 	@Override

@@ -1,19 +1,25 @@
 package repository.implementation;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
+import entitymanagerfactory.EMF;
 import registro.estudiantes.dao.Ciudad;
 import repository.CiudadRepository;
 
 public class CiudadImplementation implements CiudadRepository {
 
+	private static CiudadImplementation instance;
 	private EntityManager em;
 
-	public CiudadImplementation(EntityManager em) {
-		this.em = em;
+	public static CiudadImplementation getInstance() {
+		if (instance == null) {
+			instance = new CiudadImplementation();
+		}
+		return instance;
+	}
+
+	private CiudadImplementation() {
+		this.em = EMF.createEntityManager();
 	}
 
 	/**
@@ -23,7 +29,7 @@ public class CiudadImplementation implements CiudadRepository {
 	 * @return retorna una ciudad
 	 */
 	@Override
-	public Ciudad get(int id) {
+	public Ciudad get(Integer id) {
 		@SuppressWarnings("unchecked")
 		List<Ciudad> c = em.createQuery("SELECT c FROM Ciudad c WHERE c.idCiudad =: idCiudad")
 				.setParameter("idCiudad", id).getResultList();
@@ -81,12 +87,6 @@ public class CiudadImplementation implements CiudadRepository {
 	}
 
 	@Override
-	public Ciudad get(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void update(Integer id) {
 		// TODO Auto-generated method stub
 
@@ -102,4 +102,5 @@ public class CiudadImplementation implements CiudadRepository {
 			return null;
 		}
 	}
+
 }

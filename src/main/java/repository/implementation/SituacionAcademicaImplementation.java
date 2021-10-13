@@ -3,17 +3,27 @@ package repository.implementation;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+
+import entitymanagerfactory.EMF;
 import registro.estudiantes.dao.SituacionAcademica;
 import repository.SituacionAcademicaRepository;
 
 public class SituacionAcademicaImplementation implements SituacionAcademicaRepository {
 
 	private EntityManager em;
+	private static SituacionAcademicaImplementation instance;
 
-	public SituacionAcademicaImplementation(EntityManager em) {
-		this.em = em;
+	public static SituacionAcademicaImplementation getInstance() {
+		if (instance == null) {
+			instance = new SituacionAcademicaImplementation();
+		}
+		return instance;
 	}
-	
+
+	public SituacionAcademicaImplementation() {
+		this.em = EMF.createEntityManager();
+	}
+
 	/**
 	 * Permite recuperar una situacion academica por su id
 	 * 
@@ -24,14 +34,14 @@ public class SituacionAcademicaImplementation implements SituacionAcademicaRepos
 	public SituacionAcademica get(Integer id) {
 		@SuppressWarnings("unchecked")
 		List<SituacionAcademica> SituacionAcademicaList = em
-				.createQuery("SELECT s FROM SituacionAcademica s WHERE s.id=:id")
-				.setParameter("id", id).getResultList();
+				.createQuery("SELECT s FROM SituacionAcademica s WHERE s.id=:id").setParameter("id", id)
+				.getResultList();
 		if (!SituacionAcademicaList.isEmpty()) {
 			return SituacionAcademicaList.get(0);
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Permite recuperar una situacion academica por su nombre
 	 * 
@@ -42,7 +52,7 @@ public class SituacionAcademicaImplementation implements SituacionAcademicaRepos
 	public SituacionAcademica getByName(String name) {
 		return null;
 	}
-	
+
 	/**
 	 * Permite guardar una situacion academica
 	 * 
@@ -55,7 +65,7 @@ public class SituacionAcademicaImplementation implements SituacionAcademicaRepos
 		em.persist(situacionacademica);
 		em.getTransaction().commit();
 	}
-	
+
 	/**
 	 * Permite borrar una situacion academica
 	 * 
@@ -75,8 +85,8 @@ public class SituacionAcademicaImplementation implements SituacionAcademicaRepos
 	@Override
 	public List<SituacionAcademica> getAll() {
 		@SuppressWarnings("unchecked")
-		List<SituacionAcademica> SituacionAcademicaList = em
-				.createQuery("SELECT s FROM SituacionAcademica s ").getResultList();
+		List<SituacionAcademica> SituacionAcademicaList = em.createQuery("SELECT s FROM SituacionAcademica s ")
+				.getResultList();
 		if (!SituacionAcademicaList.isEmpty()) {
 			return SituacionAcademicaList;
 		}

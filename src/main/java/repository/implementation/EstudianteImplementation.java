@@ -4,8 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
+import entitymanagerfactory.EMF;
 import registro.estudiantes.dao.Carrera;
 import registro.estudiantes.dao.Ciudad;
 import registro.estudiantes.dao.Estudiante;
@@ -15,9 +14,17 @@ import repository.EstudianteRepository;
 public class EstudianteImplementation implements EstudianteRepository {
 
 	private EntityManager em;
+	private static EstudianteImplementation instance;
 
-	public EstudianteImplementation(EntityManager em) {
-		this.em = em;
+	public static EstudianteImplementation getInstance() {
+		if (instance == null) {
+			instance = new EstudianteImplementation();
+		}
+		return instance;
+	}
+
+	private EstudianteImplementation() {
+		this.em = EMF.createEntityManager();
 	}
 
 	/**
