@@ -45,6 +45,22 @@ public class ReporteCarreras {
 		this.anio = anio;
 	}
 
+	public Long getEgresados() {
+		return egresados;
+	}
+
+	public void setEgresados(Long egresados) {
+		this.egresados = egresados;
+	}
+
+	public Long getInscriptos() {
+		return inscriptos;
+	}
+
+	public void setInscriptos(Long inscriptos) {
+		this.inscriptos = inscriptos;
+	}
+
 	@Override
 	public String toString() {
 		return "ReporteCarreras [idCarrera=" + idCarrera + ", nombreCarrera=" + nombreCarrera + ", anio=" + anio
