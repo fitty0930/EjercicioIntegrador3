@@ -93,7 +93,7 @@ public class EstudianteController {
 	}
 
 	@GET
-	@Path("/bycity/{idcit}/{idcar}")
+	@Path("/ciudad/{idcit}/carrera/{idcar}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Estudiante> getEstudianteByCiudad(@PathParam("idcar") int idcar, @PathParam("idcit") int idcit) {
 		// PUNTO G
