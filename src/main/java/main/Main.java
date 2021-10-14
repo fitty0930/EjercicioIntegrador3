@@ -1,12 +1,8 @@
 package main;
 
-import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import DTO.ReporteCarreras;
 import registro.estudiantes.csv.CSVtoMYSQL;
-import registro.estudiantes.dao.Carrera;
-import registro.estudiantes.dao.Estudiante;
 import repository.implementation.CarreraImplementation;
 import repository.implementation.CiudadImplementation;
 import repository.implementation.EstudianteImplementation;
@@ -21,7 +17,8 @@ public class Main {
 		/**
 		 * Apertura de conexiones
 		 */
-//		EntityManagerFactory emf = Persistence.createEntityManagerFactory("registroestudiantesdb");
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("registroestudiantesdb");
 		CarreraImplementation carreraImplementation = CarreraImplementation.getInstance();
 		CiudadImplementation ciudadImplementation = CiudadImplementation.getInstance();
 		EstudianteImplementation estudianteImplementation = EstudianteImplementation.getInstance();
@@ -34,12 +31,12 @@ public class Main {
 		CSVtoMYSQL importador = new CSVtoMYSQL();
 
 		importador.importarCSVFacultad(facultadImplementation);
-		importador.importarCSVCarrera(facultadImplementation, carreraImplementation);
-		importador.importarCSVCiudad(ciudadImplementation);
-		importador.importarCSVEstudiante(estudianteImplementation, ciudadImplementation);
-		importador.importarCSVSituacionAcademica(situacionAcademicaImplementation, carreraImplementation,
-				estudianteImplementation);
-
+//		importador.importarCSVCarrera(facultadImplementation, carreraImplementation);
+//		importador.importarCSVCiudad(ciudadImplementation);
+//		importador.importarCSVEstudiante(estudianteImplementation, ciudadImplementation);
+//		importador.importarCSVSituacionAcademica(situacionAcademicaImplementation, carreraImplementation,
+//				estudianteImplementation);
+//
 //		/**
 //		 * Operaciones
 //		 */
@@ -106,12 +103,12 @@ public class Main {
 		/**
 		 * Cierre de conexiones
 		 */
-//		carreraImplementation.closeConnection();
-//		ciudadImplementation.closeConnection();
-//		estudianteImplementation.closeConnection();
-//		facultadImplementation.closeConnection();
-//		situacionAcademicaImplementation.closeConnection();
-//		emf.close();
+		carreraImplementation.closeConnection();
+		ciudadImplementation.closeConnection();
+		estudianteImplementation.closeConnection();
+		facultadImplementation.closeConnection();
+		situacionAcademicaImplementation.closeConnection();
+		emf.close();
 	}
 
 }

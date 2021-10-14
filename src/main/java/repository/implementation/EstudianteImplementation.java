@@ -160,8 +160,9 @@ public class EstudianteImplementation implements EstudianteRepository {
 	public void matricularEstudiante(int nroLibreta, String nombreCarrera) {
 		Estudiante nroEstudiante = this.get(nroLibreta);
 		Carrera idCarrera = career.getByName(nombreCarrera);
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		if (idCarrera != null && nroEstudiante != null) {
-			SituacionAcademica tempAcademica = new SituacionAcademica(nroEstudiante, idCarrera, 0, false, null, null);
+			SituacionAcademica tempAcademica = new SituacionAcademica(nroEstudiante, idCarrera, 0, false, timestamp, null);
 			situ.create(tempAcademica);
 		}
 
@@ -243,7 +244,7 @@ public class EstudianteImplementation implements EstudianteRepository {
 	public void closeConnection() {
 		this.em.close();
 	}
-
+	
 	@Override
 	public List<Estudiante> getAll() {
 		@SuppressWarnings("unchecked")
