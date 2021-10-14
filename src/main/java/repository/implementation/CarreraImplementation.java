@@ -80,7 +80,9 @@ public class CarreraImplementation implements CarreraRepository {
 	@Override
 	public boolean delete(Integer id) {
 		int idCarrera = id;
+		em.getTransaction().begin();
 		em.createQuery("DELETE FROM Carrera c WHERE c.idCarrera=:idCarrera").setParameter("idCarrera", idCarrera);
+		em.getTransaction().commit();
 		return true;
 	}
 

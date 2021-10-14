@@ -85,8 +85,10 @@ public class EstudianteImplementation implements EstudianteRepository {
 	@Override
 	public boolean delete(Integer estudiante) {
 		int nroEstudiante = estudiante;
+		em.getTransaction().begin();
 		em.createQuery("DELETE FROM Estudiante e WHERE e.nroEstudiante=:nroEstudiante").setParameter("nroEstudiante",
 				nroEstudiante);
+		em.getTransaction().commit();
 		return true;
 	}
 

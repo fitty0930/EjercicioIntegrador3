@@ -74,7 +74,9 @@ public class SituacionAcademicaImplementation implements SituacionAcademicaRepos
 	@Override
 	public boolean delete(Integer situacionacademica) {
 		int id = situacionacademica;
+		em.getTransaction().begin();
 		em.createQuery("DELETE FROM SituacionAcademica s WHERE s.id=:id").setParameter("id", id);
+		em.getTransaction().commit();
 		return true;
 	}
 

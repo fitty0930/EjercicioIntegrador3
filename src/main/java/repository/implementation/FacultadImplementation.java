@@ -79,7 +79,9 @@ public class FacultadImplementation implements FacultadRepository {
 	@Override
 	public boolean delete(Integer facultad) {
 		int idFacultad = facultad;
+		em.getTransaction().begin();
 		em.createQuery("DELETE FROM Facultad f WHERE f.idFacultad=:idFacultad").setParameter("idFacultad", idFacultad);
+		em.getTransaction().commit();
 		return true;
 	}
 
