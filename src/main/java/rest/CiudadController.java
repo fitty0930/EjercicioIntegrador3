@@ -21,6 +21,8 @@ public class CiudadController {
 	public CiudadController() {
 		cityRepo = CiudadImplementation.getInstance();
 	}
+	
+	// BASICOS
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -37,7 +39,7 @@ public class CiudadController {
 	}
 
 	@GET
-	@Path("ciudad/{name}")
+	@Path("searchname/{name}") // REVISAR ESTA RUTA
 	@Produces(MediaType.APPLICATION_JSON)
 	public Ciudad getCiudadByName(@PathParam("name") String name) {
 		return cityRepo.getByName(name);

@@ -15,6 +15,8 @@ public class EstudianteImplementation implements EstudianteRepository {
 
 	private EntityManager em;
 	private static EstudianteImplementation instance;
+	private SituacionAcademicaImplementation situ = SituacionAcademicaImplementation.getInstance();
+	private CarreraImplementation career= CarreraImplementation.getInstance();
 
 	public static EstudianteImplementation getInstance() {
 		if (instance == null) {
@@ -155,8 +157,7 @@ public class EstudianteImplementation implements EstudianteRepository {
 	 * @param situ          una implementacion de situacion academica para consultas
 	 *                      auxiliares
 	 */
-	public void matricularEstudiante(int nroLibreta, String nombreCarrera, CarreraImplementation career,
-			SituacionAcademicaImplementation situ) {
+	public void matricularEstudiante(int nroLibreta, String nombreCarrera) {
 		Estudiante nroEstudiante = this.get(nroLibreta);
 		Carrera idCarrera = career.getByName(nombreCarrera);
 		if (idCarrera != null && nroEstudiante != null) {
@@ -194,8 +195,7 @@ public class EstudianteImplementation implements EstudianteRepository {
 	 * @param situ          una implementacion de situacion academica para consultas
 	 *                      auxiliares
 	 */
-	public void matricularEstudiante(Long dni, String nombreCarrera, CarreraImplementation career,
-			SituacionAcademicaImplementation situ) {
+	public void matricularEstudiante(Long dni, String nombreCarrera) {
 		em.getTransaction().begin();
 		Estudiante nroEstudiante = this.getByDNI(dni);
 		Carrera idCarrera = career.getByName(nombreCarrera);
