@@ -89,7 +89,7 @@ public class EstudianteImplementation implements EstudianteRepository {
 		int nroEstudiante = estudiante;
 		em.getTransaction().begin();
 		em.createQuery("DELETE FROM Estudiante e WHERE e.nroEstudiante=:nroEstudiante").setParameter("nroEstudiante",
-				nroEstudiante);
+				nroEstudiante).executeUpdate();
 		em.getTransaction().commit();
 		return true;
 	}
