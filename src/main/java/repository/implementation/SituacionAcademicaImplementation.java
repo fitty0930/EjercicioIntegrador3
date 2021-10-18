@@ -86,6 +86,9 @@ public class SituacionAcademicaImplementation implements SituacionAcademicaRepos
 		em.getTransaction().begin();
 		em.createQuery("DELETE FROM SituacionAcademica s WHERE s.id=:id").setParameter("id", id).executeUpdate();
 		em.getTransaction().commit();
+		if(this.get(id) != null) {
+			return false;
+		}
 		return true;
 	}
 

@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 import registro.estudiantes.dao.Ciudad;
 import repository.implementation.CiudadImplementation;
 
-@Path("/ciudades")
+@Path("ciudades")
 public class CiudadController {
 	private CiudadImplementation cityRepo;
 //	http://localhost:8080/EjercicioIntegrador3/registroestudiantes/ciudades/
@@ -59,6 +59,10 @@ public class CiudadController {
 	@Path("/{id}")
 	@Produces(MediaType.TEXT_PLAIN)
 	public void deleteCity(@PathParam("id") int id) {
-		this.cityRepo.delete(id);
+		if(this.cityRepo.delete(id)) {
+			System.out.println("Ciudad eliminada con exito");
+		}else {
+			System.out.println("Por favor verifique el orden de borrado");
+		}
 	}
 }

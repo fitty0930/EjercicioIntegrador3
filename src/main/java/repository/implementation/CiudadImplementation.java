@@ -82,8 +82,11 @@ public class CiudadImplementation implements CiudadRepository {
 	public boolean delete(Integer id) {
 		int idCiudad = id;
 		em.getTransaction().begin();
-		em.createQuery("DELETE FROM Ciudad c WHERE c.idCiudad=:idCiudad").setParameter("idCiudad", idCiudad);
+		em.createQuery("DELETE FROM Ciudad c WHERE c.idCiudad=:idCiudad").setParameter("idCiudad", idCiudad).executeUpdate();
 		em.getTransaction().commit();
+		if(this.get(idCiudad) != null) {
+			return false;
+		}
 		return true;
 	}
 

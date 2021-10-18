@@ -58,6 +58,11 @@ public class FacultadController {
 	@Path("/{id}")
 	@Produces(MediaType.TEXT_PLAIN)
 	public void deleteFacultad(@PathParam("id") int id) {
-		this.facuRepo.delete(id);
+		if(this.facuRepo.delete(id)){
+			System.out.println("Facultad eliminada con exito");
+		}else{
+			System.out.println("Por favor verifique el orden de borrado");
+		}
+		
 	}
 }

@@ -30,22 +30,9 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Martin/.m2/repository/javax/persistence/javax.persistence-api/2.2/javax.persistence-api-2.2.jar" sourcepath="C:/Users/Martin/.m2/repository/javax/persistence/javax.persistence-api/2.2/javax.persistence-api-2.2-sources.jar">
+	<classpathentry exported="true" kind="lib" path="C:/Users/orioz/eclipse-workspace/apache-tomcat-9.0.46/lib/servlet-api.jar">
 		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="maven.groupId" value="javax.persistence"/>
-			<attribute name="maven.artifactId" value="javax.persistence-api"/>
-			<attribute name="maven.version" value="2.2"/>
-			<attribute name="maven.scope" value="compile"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Martin/.m2/repository/org/apache/commons/commons-csv/1.9.0/commons-csv-1.9.0.jar" sourcepath="C:/Users/Martin/.m2/repository/org/apache/commons/commons-csv/1.9.0/commons-csv-1.9.0-sources.jar">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="maven.groupId" value="org.apache.commons"/>
-			<attribute name="maven.artifactId" value="commons-csv"/>
-			<attribute name="maven.version" value="1.9.0"/>
-			<attribute name="maven.scope" value="compile"/>
+			<attribute name="javadoc_location" value="https://javaee.github.io/javaee-spec/javadocs/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>

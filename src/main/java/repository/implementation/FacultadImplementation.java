@@ -86,6 +86,9 @@ public class FacultadImplementation implements FacultadRepository {
 		em.getTransaction().begin();
 		em.createQuery("DELETE FROM Facultad f WHERE f.idFacultad=:idFacultad").setParameter("idFacultad", idFacultad).executeUpdate();
 		em.getTransaction().commit();
+		if(this.get(idFacultad) != null) {
+			return false;
+		}
 		return true;
 	}
 

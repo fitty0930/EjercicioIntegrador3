@@ -58,6 +58,11 @@ public class SituacionAcademicaController {
 	@Path("/{id}")
 	@Produces(MediaType.TEXT_PLAIN)
 	public void deleteSituacion(@PathParam("id") int id) {
-		this.situRepo.delete(id);
+		if(this.situRepo.delete(id)) {
+			System.out.println("Situacion academica eliminada con exito");
+		}else {
+			System.out.println("Por favor verifique el orden de borrado");
+		}
+		
 	}
 }

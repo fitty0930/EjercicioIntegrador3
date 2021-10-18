@@ -58,7 +58,11 @@ public class CarreraController {
 	@Path("/{id}")
 	@Produces(MediaType.TEXT_PLAIN)
 	public void deleteCareer(@PathParam("id") int id) {
-		this.carreraRepo.delete(id);
+		if(this.carreraRepo.delete(id)) {
+			System.out.println("Carrera eliminada con exito");
+		}else {
+			System.out.println("Por favor verifique el orden de borrado");
+		}
 	}
 
 	// ADICIONALES

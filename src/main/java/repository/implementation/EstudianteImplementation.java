@@ -91,6 +91,9 @@ public class EstudianteImplementation implements EstudianteRepository {
 		em.createQuery("DELETE FROM Estudiante e WHERE e.nroEstudiante=:nroEstudiante").setParameter("nroEstudiante",
 				nroEstudiante).executeUpdate();
 		em.getTransaction().commit();
+		if(this.get(nroEstudiante) != null) {
+			return false;
+		}
 		return true;
 	}
 
