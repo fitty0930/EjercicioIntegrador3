@@ -58,11 +58,11 @@ public class CiudadController {
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.TEXT_PLAIN)
-	public void deleteCity(@PathParam("id") int id) {
+	public Response deleteCity(@PathParam("id") int id) {
 		if(this.cityRepo.delete(id)) {
-			System.out.println("Ciudad eliminada con exito");
+			return Response.status(200).build();
 		}else {
-			System.out.println("Por favor verifique el orden de borrado");
+			return Response.status(500).build();
 		}
 	}
 }
