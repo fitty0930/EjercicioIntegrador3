@@ -10,6 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import DTO.ReporteCarreras;
 import registro.estudiantes.dao.Carrera;
@@ -48,8 +49,9 @@ public class CarreraController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public void save(Carrera carrera) {
+	public Response save(Carrera carrera) {
 		this.carreraRepo.create(carrera);
+		return Response.status(201).entity(carrera).build();
 	}
 
 	@DELETE

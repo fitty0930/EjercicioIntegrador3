@@ -1,5 +1,7 @@
 package repository.implementation;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -61,6 +63,13 @@ public class SituacionAcademicaImplementation implements SituacionAcademicaRepos
 	 */
 	@Override
 	public void create(SituacionAcademica situacionacademica) {
+		List<SituacionAcademica> arrsituAcademicas = this.getAll();
+		for (SituacionAcademica situ : arrsituAcademicas) {
+			if (situ.getCarrera().equals(situacionacademica.getCarrera())
+					&& situ.getEstudiante().equals(situacionacademica.getEstudiante())) {
+				return;
+			}
+		}
 		em.getTransaction().begin();
 		em.persist(situacionacademica);
 		em.getTransaction().commit();

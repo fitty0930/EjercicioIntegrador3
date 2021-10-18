@@ -66,9 +66,13 @@ public class FacultadImplementation implements FacultadRepository {
 	 */
 	@Override
 	public void create(Facultad facultad) {
-		em.getTransaction().begin();
-		em.persist(facultad);
-		em.getTransaction().commit();
+		if (null == this.get(facultad.getIdFacultad())) {
+			if (null == this.getByName(facultad.getNombreFacultad())) {
+				em.getTransaction().begin();
+				em.persist(facultad);
+				em.getTransaction().commit();
+			}
+		}
 	}
 
 	/**

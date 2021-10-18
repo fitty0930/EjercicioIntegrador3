@@ -67,9 +67,13 @@ public class CarreraImplementation implements CarreraRepository {
 	 */
 	@Override
 	public void create(Carrera carrera) {
-		em.getTransaction().begin();
-		em.persist(carrera);
-		em.getTransaction().commit();
+		if(null==this.get(carrera.getIdCarrera())) {
+			if(null==this.getByName(carrera.getNombreCarrera())) {
+				em.getTransaction().begin();
+				em.persist(carrera);
+				em.getTransaction().commit();
+			}
+		}
 	}
 
 	/**

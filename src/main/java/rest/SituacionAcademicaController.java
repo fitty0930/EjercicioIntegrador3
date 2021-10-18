@@ -10,6 +10,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import registro.estudiantes.dao.SituacionAcademica;
 import repository.implementation.SituacionAcademicaImplementation;
 
@@ -47,8 +49,9 @@ public class SituacionAcademicaController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public void save(SituacionAcademica situacion) {
+	public Response save(SituacionAcademica situacion) {
 		this.situRepo.create(situacion);
+		return Response.status(201).entity(situacion).build();
 	}
 
 	@DELETE

@@ -28,10 +28,10 @@ public class Estudiante {
 	@ManyToOne
 	@JoinColumn(name = "idCiudad")
 	Ciudad ciudad;
-	
+
 	@OneToMany(mappedBy = "estudiante")
 	private List<SituacionAcademica> carreras;
-	
+
 	public Estudiante(String nombre, String apellido, Long dni, String genero) {
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -96,6 +96,12 @@ public class Estudiante {
 	public String toString() {
 		return "Estudiante [nroEstudiante=" + nroEstudiante + ", nombre=" + nombre + ", apellido=" + apellido + ", dni="
 				+ dni + ", genero=" + genero + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Estudiante e = (Estudiante) obj;
+		return e.getDni() == this.getDni();
 	}
 
 }

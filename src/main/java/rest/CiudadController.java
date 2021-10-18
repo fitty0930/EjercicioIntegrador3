@@ -10,6 +10,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import registro.estudiantes.dao.Ciudad;
 import repository.implementation.CiudadImplementation;
 
@@ -21,7 +23,7 @@ public class CiudadController {
 	public CiudadController() {
 		cityRepo = CiudadImplementation.getInstance();
 	}
-	
+
 	// BASICOS
 
 	@GET
@@ -48,8 +50,9 @@ public class CiudadController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public void save(Ciudad ciudad) {
+	public Response save(Ciudad ciudad) {
 		this.cityRepo.create(ciudad);
+		return Response.status(201).entity(ciudad).build();
 	}
 
 	@DELETE

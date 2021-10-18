@@ -10,6 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import DTO.EstudianteAndCareer;
 import registro.estudiantes.dao.Estudiante;
@@ -50,9 +51,10 @@ public class EstudianteController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public void save(Estudiante estudiante) {
+	public Response save(Estudiante estudiante) {
 		// PUNTO A
 		this.studentRepo.create(estudiante);
+		return Response.status(201).entity(estudiante).build();
 	}
 
 	@DELETE
@@ -76,12 +78,12 @@ public class EstudianteController {
 	@Path("/matricular")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public void matricular(EstudianteAndCareer stuCar) {
+	public Response matricular(EstudianteAndCareer stuCar) {
 		// PUNTO B
 		int nroestudiante = stuCar.getNroEstudiante();
 		String nombrecarrera = stuCar.getNombreCarrera();
 		this.studentRepo.matricularEstudiante(nroestudiante, nombrecarrera);
-		;
+		return Response.status(201).build();
 	}
 
 	@GET

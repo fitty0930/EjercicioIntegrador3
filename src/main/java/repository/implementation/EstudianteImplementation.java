@@ -16,7 +16,7 @@ public class EstudianteImplementation implements EstudianteRepository {
 	private EntityManager em;
 	private static EstudianteImplementation instance;
 	private SituacionAcademicaImplementation situ = SituacionAcademicaImplementation.getInstance();
-	private CarreraImplementation career= CarreraImplementation.getInstance();
+	private CarreraImplementation career = CarreraImplementation.getInstance();
 
 	public static EstudianteImplementation getInstance() {
 		if (instance == null) {
@@ -74,9 +74,11 @@ public class EstudianteImplementation implements EstudianteRepository {
 	 */
 	@Override
 	public void create(Estudiante estudiante) {
-		em.getTransaction().begin();
-		em.persist(estudiante);
-		em.getTransaction().commit();
+		if (this.getByDNI(estudiante.getDni()) == null) {
+			em.getTransaction().begin();
+			em.persist(estudiante);
+			em.getTransaction().commit();
+		}
 	}
 
 	/**
@@ -164,7 +166,8 @@ public class EstudianteImplementation implements EstudianteRepository {
 		Carrera idCarrera = career.getByName(nombreCarrera);
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		if (idCarrera != null && nroEstudiante != null) {
-			SituacionAcademica tempAcademica = new SituacionAcademica(nroEstudiante, idCarrera, 0, false, timestamp, null);
+			SituacionAcademica tempAcademica = new SituacionAcademica(nroEstudiante, idCarrera, 0, false, timestamp,
+					null);
 			situ.create(tempAcademica);
 		}
 
@@ -246,7 +249,7 @@ public class EstudianteImplementation implements EstudianteRepository {
 	public void closeConnection() {
 		this.em.close();
 	}
-	
+
 	@Override
 	public List<Estudiante> getAll() {
 		@SuppressWarnings("unchecked")

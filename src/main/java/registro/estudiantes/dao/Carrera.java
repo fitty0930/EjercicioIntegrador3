@@ -65,5 +65,10 @@ public class Carrera {
 		return "Carrera [idCarrera=" + idCarrera + ", facultad=" + facultad + ", nombreCarrera=" + nombreCarrera
 				+ ", estudiantes=" + estudiantes + "]";
 	}
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		Carrera c = (Carrera) obj;
+		return this.getIdCarrera() == c.getIdCarrera() && this.getNombreCarrera().equals(c.getNombreCarrera());
+	}
 }

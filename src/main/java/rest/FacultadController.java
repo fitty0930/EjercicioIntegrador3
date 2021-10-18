@@ -10,6 +10,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import registro.estudiantes.dao.Facultad;
 import repository.implementation.FacultadImplementation;
 
@@ -47,8 +49,9 @@ public class FacultadController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public void save(Facultad facultad) {
+	public Response save(Facultad facultad) {
 		this.facuRepo.create(facultad);
+		return Response.status(201).entity(facultad).build();
 	}
 
 	@DELETE

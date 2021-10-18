@@ -65,9 +65,12 @@ public class CiudadImplementation implements CiudadRepository {
 	 */
 	@Override
 	public void create(Ciudad ciudad) {
-		em.getTransaction().begin();
-		em.persist(ciudad);
-		em.getTransaction().commit();
+		Ciudad cityCiudad=this.getByName(ciudad.getNombreCiudad());
+		if (null == cityCiudad || !ciudad.getProvincia().equals(cityCiudad.getProvincia())) {
+			em.getTransaction().begin();
+			em.persist(ciudad);
+			em.getTransaction().commit();
+		}
 	}
 
 	/**
