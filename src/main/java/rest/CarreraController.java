@@ -27,9 +27,15 @@ public class CarreraController {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Carrera> getAll() {
+	public Response getAll() {
 		// TODO Auto-generated method stub
-		return this.carreraRepo.getAll();
+//		return this.carreraRepo.getAll();
+		 try {
+			 return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(this.carreraRepo.getAll()).build();
+	        } catch (Exception e) {
+	            System.out.println(e.getMessage());
+	            return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
+	        }
 	}
 
 	@GET
@@ -58,6 +64,7 @@ public class CarreraController {
 	@Path("/{id}")
 	@Produces(MediaType.TEXT_PLAIN)
 	public void deleteCareer(@PathParam("id") int id) {
+		
 		if(this.carreraRepo.delete(id)) {
 			System.out.println("Carrera eliminada con exito");
 		}else {
