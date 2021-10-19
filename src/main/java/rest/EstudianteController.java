@@ -60,11 +60,11 @@ public class EstudianteController {
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.TEXT_PLAIN)
-	public void deleteStudent(@PathParam("id") int id) {
-		if(this.studentRepo.delete(id)) {
-			System.out.println("Estudiante eliminado con exito");
-		}else {
-			System.out.println("Por favor verifique el orden de borrado");
+	public Response deleteStudent(@PathParam("id") int id) {
+		if (this.studentRepo.delete(id)) {
+			return Response.status(200).build();
+		} else {
+			return Response.status(500).build();
 		}
 	}
 
