@@ -88,8 +88,7 @@ public class EstudianteImplementation implements EstudianteRepository {
 	public boolean delete(Integer estudiante) {
 		int nroEstudiante = estudiante;
 		em.getTransaction().begin();
-		em.createQuery("DELETE FROM Estudiante e WHERE e.nroEstudiante=:nroEstudiante").setParameter("nroEstudiante",
-				nroEstudiante).executeUpdate();
+		em.createQuery("DELETE FROM Estudiante e WHERE e.nroEstudiante=:nroEstudiante").setParameter("nroEstudiante",nroEstudiante).executeUpdate();
 		em.getTransaction().commit();
 		if(this.get(nroEstudiante) != null) {
 			return false;

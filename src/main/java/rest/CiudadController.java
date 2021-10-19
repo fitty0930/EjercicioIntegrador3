@@ -28,31 +28,51 @@ public class CiudadController {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Ciudad> getAll() {
+	public Response getAll() {
 		// TODO Auto-generated method stub
-		return this.cityRepo.getAll();
+		 try {
+			 return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(this.cityRepo.getAll()).build();
+		 } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
+		 }
 	}
 
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Ciudad getCiudad(@PathParam("id") int id) {
-		return cityRepo.get(id);
+	public Response getCiudad(@PathParam("id") int id) {
+		try {
+			 return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(cityRepo.get(id)).build();
+		 } catch (Exception e) {
+           System.out.println(e.getMessage());
+           return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
+		 }
 	}
 
 	@GET
 	@Path("searchname/{name}") // REVISAR ESTA RUTA
 	@Produces(MediaType.APPLICATION_JSON)
-	public Ciudad getCiudadByName(@PathParam("name") String name) {
-		return cityRepo.getByName(name);
+	public Response getCiudadByName(@PathParam("name") String name) {
+		try {
+			 return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(cityRepo.getByName(name)).build();
+		 } catch (Exception e) {
+          System.out.println(e.getMessage());
+          return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
+		 }
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response save(Ciudad ciudad) {
-		this.cityRepo.create(ciudad);
-		return Response.status(201).entity(ciudad).build();
+		try {
+			this.cityRepo.create(ciudad);
+			return Response.status(201).header("Access-Control-Allow-Origin", "*").build();	
+		 } catch (Exception e) {
+         System.out.println(e.getMessage());
+         return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
+		 }
 	}
 
 	@DELETE
@@ -60,9 +80,9 @@ public class CiudadController {
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response deleteCity(@PathParam("id") int id) {
 		if(this.cityRepo.delete(id)) {
-			return Response.status(200).build();
+			return Response.status(200).header("Access-Control-Allow-Origin", "*").build();
 		}else {
-			return Response.status(500).build();
+			return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
 		}
 	}
 }

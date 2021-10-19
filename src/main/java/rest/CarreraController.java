@@ -28,36 +28,50 @@ public class CarreraController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAll() {
-		// TODO Auto-generated method stub
-//		return this.carreraRepo.getAll();
 		 try {
 			 return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(this.carreraRepo.getAll()).build();
-	        } catch (Exception e) {
-	            System.out.println(e.getMessage());
-	            return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
-	        }
+		 } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
+		 }
 	}
 
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Carrera getCarrera(@PathParam("id") int id) {
-		return carreraRepo.get(id);
+	public Response getCarrera(@PathParam("id") int id) {
+		try {
+			return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(carreraRepo.get(id)).build();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
+        }
+		
 	}
 
 	@GET
 	@Path("searchname/{name}") // REVISAR ESTA RUTA
 	@Produces(MediaType.APPLICATION_JSON)
-	public Carrera getCarreraByName(@PathParam("name") String name) {
-		return carreraRepo.getByName(name);
+	public Response getCarreraByName(@PathParam("name") String name) {
+		try {
+			return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(carreraRepo.getByName(name)).build();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
+        }
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response save(Carrera carrera) {
-		this.carreraRepo.create(carrera);
-		return Response.status(201).entity(carrera).build();
+		try {
+			this.carreraRepo.create(carrera);
+			return Response.status(201).header("Access-Control-Allow-Origin", "*").build();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
+        }
 	}
 
 	@DELETE
@@ -65,9 +79,9 @@ public class CarreraController {
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response deleteCareer(@PathParam("id") int id) {
 		if(this.carreraRepo.delete(id)) {
-			return Response.status(200).build();
+			return Response.status(200).header("Access-Control-Allow-Origin", "*").build();
 		}else {
-			return Response.status(500).build();
+			return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
 		}
 	}
 
@@ -76,17 +90,25 @@ public class CarreraController {
 	@GET
 	@Path("inscriptosSortByCant")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Carrera> getAllWithEnrolled() {
-		// PUNTO F
-		return this.carreraRepo.getCarrerasConEstudiantesSortByCantidad();
+	public Response getAllWithEnrolled() {
+		 try {
+			 return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(this.carreraRepo.getCarrerasConEstudiantesSortByCantidad()).build();
+		 } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
+		 }
 	}
 
 	@GET
 	@Path("reporte")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ReporteCarreras> getReport() {
-		// PUNTO H
-		return this.carreraRepo.getReporte();
+	public Response getReport() {
+		try {
+			 return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(this.carreraRepo.getReporte()).build();
+		 } catch (Exception e) {
+           System.out.println(e.getMessage());
+           return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
+		 }
 	}
 
 }

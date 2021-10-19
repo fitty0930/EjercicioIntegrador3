@@ -28,30 +28,50 @@ public class FacultadController {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Facultad> getAll() {
-		return this.facuRepo.getAll();
+	public Response getAll() {
+		try {
+			 return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(this.facuRepo.getAll()).build();
+		 } catch (Exception e) {
+	         System.out.println(e.getMessage());
+	         return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
+		 }
 	}
 
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Facultad getFacultad(@PathParam("id") int id) {
-		return facuRepo.get(id);
+	public Response getFacultad(@PathParam("id") int id) {
+		try {
+			 return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(facuRepo.get(id)).build();
+		 } catch (Exception e) {
+	         System.out.println(e.getMessage());
+	         return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
+		 }
 	}
 
 	@GET
 	@Path("searchname/{name}") // REVISAR ESTA RUTA
 	@Produces(MediaType.APPLICATION_JSON)
-	public Facultad getFacultadByName(@PathParam("name") String name) {
-		return facuRepo.getByName(name);
+	public Response getFacultadByName(@PathParam("name") String name) {
+		try {
+			 return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(facuRepo.getByName(name)).build();
+		 } catch (Exception e) {
+	         System.out.println(e.getMessage());
+	         return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
+		 }
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response save(Facultad facultad) {
-		this.facuRepo.create(facultad);
-		return Response.status(201).entity(facultad).build();
+		try {
+			this.facuRepo.create(facultad);
+			return Response.status(201).header("Access-Control-Allow-Origin", "*").build();	
+		 } catch (Exception e) {
+         System.out.println(e.getMessage());
+         return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
+		 }
 	}
 
 	@DELETE
@@ -59,9 +79,9 @@ public class FacultadController {
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response deleteFacultad(@PathParam("id") int id) {
 		if (this.facuRepo.delete(id)) {
-			return Response.status(200).build();
+			return Response.status(200).header("Access-Control-Allow-Origin", "*").build();
 		} else {
-			return Response.status(500).build();
+			return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
 		}
 
 	}

@@ -85,7 +85,7 @@ public class CarreraImplementation implements CarreraRepository {
 	public boolean delete(Integer id) {
 		int idCarrera = id;
 		em.getTransaction().begin();
-		em.createQuery("DELETE FROM Carrera c WHERE c.idCarrera=:idCarrera").setParameter("idCarrera", idCarrera);
+		em.createQuery("DELETE FROM Carrera c WHERE c.idCarrera=:idCarrera").setParameter("idCarrera", idCarrera).executeUpdate();
 		em.getTransaction().commit();
 		if(this.get(idCarrera) != null) {
 			return false;
