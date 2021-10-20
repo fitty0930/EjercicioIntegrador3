@@ -71,7 +71,7 @@ public class EstudianteController {
 		// PUNTO A
 		try {
 			this.studentRepo.create(estudiante);
-			return Response.status(201).header("Access-Control-Allow-Origin", "*").build();	
+			return Response.status(200).header("Access-Control-Allow-Origin", "*").header("Access-Control-Allow-Methods", "POST").build();	
 		 } catch (Exception e) {
          System.out.println(e.getMessage());
          return Response.status(500).header("Access-Control-Allow-Origin", "*").build();

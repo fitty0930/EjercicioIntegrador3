@@ -30,11 +30,12 @@ public class FacultadController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAll() {
 		try {
-			 return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(this.facuRepo.getAll()).build();
-		 } catch (Exception e) {
-	         System.out.println(e.getMessage());
-	         return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
-		 }
+			return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(this.facuRepo.getAll())
+					.build();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
+		}
 	}
 
 	@GET
@@ -42,11 +43,11 @@ public class FacultadController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getFacultad(@PathParam("id") int id) {
 		try {
-			 return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(facuRepo.get(id)).build();
-		 } catch (Exception e) {
-	         System.out.println(e.getMessage());
-	         return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
-		 }
+			return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(facuRepo.get(id)).build();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
+		}
 	}
 
 	@GET
@@ -54,11 +55,12 @@ public class FacultadController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getFacultadByName(@PathParam("name") String name) {
 		try {
-			 return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(facuRepo.getByName(name)).build();
-		 } catch (Exception e) {
-	         System.out.println(e.getMessage());
-	         return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
-		 }
+			return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(facuRepo.getByName(name))
+					.build();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
+		}
 	}
 
 	@POST
@@ -67,11 +69,11 @@ public class FacultadController {
 	public Response save(Facultad facultad) {
 		try {
 			this.facuRepo.create(facultad);
-			return Response.status(201).header("Access-Control-Allow-Origin", "*").build();	
-		 } catch (Exception e) {
-         System.out.println(e.getMessage());
-         return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
-		 }
+			return Response.status(201).header("Access-Control-Allow-Origin", "*").build();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return Response.status(500).header("Access-Control-Allow-Origin", "*").build();
+		}
 	}
 
 	@DELETE
