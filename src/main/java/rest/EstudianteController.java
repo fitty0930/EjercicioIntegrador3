@@ -66,7 +66,7 @@ public class EstudianteController {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response save(Estudiante estudiante) {
 		// PUNTO A
 		try {

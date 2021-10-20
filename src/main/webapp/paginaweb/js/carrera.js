@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function() {
         fetch("http://localhost:8080/EjercicioIntegrador3/registroestudiantes/carreras", requestOptions)
             .then(response => response.json())
             .then(data => {
-                console.log(data)
                 let string = ""
                 data.forEach(carrera => {
                     string += `<li href="#" class="list-group-item text-left">

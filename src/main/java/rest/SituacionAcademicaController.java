@@ -64,7 +64,7 @@ public class SituacionAcademicaController {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response save(SituacionAcademica situacion) {
 		try {
 			this.situRepo.create(situacion);
